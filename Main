@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Graph graph = new Graph();
+
+        // Menambahkan kelurahan
+        graph.addVertex("Ampenan Selatan");
+        graph.addVertex("Ampenan Tengah");
+        graph.addVertex("Ampenan Utara");
+        graph.addVertex("Banjar");
+        graph.addVertex("Bintaro");
+        graph.addVertex("Dayan Peken");
+        graph.addVertex("Kebun Sari");
+        graph.addVertex("Pajarakan Karya");
+        graph.addVertex("Pejeruk");
+        graph.addVertex("Taman Sari");
+        graph.addVertex("Cakranegara Barat");
+        graph.addVertex("Cakranegara Selatan");
+        graph.addVertex("Cakranegara Selatan Baru");
+        graph.addVertex("Cakranegara Timur");
+        graph.addVertex("Cakranegara Utara");
+        graph.addVertex("Cilinaya");
+        graph.addVertex("Karang Taliwang");
+        graph.addVertex("Mayura");
+        graph.addVertex("Sapta Marga");
+        graph.addVertex("Sayang-sayang");
+        graph.addVertex("Mataram Timur");
+        graph.addVertex("Pagesangan");
+        graph.addVertex("Pagesangan Barat");
+        graph.addVertex("Pagesangan Timur");
+        graph.addVertex("Pagutan");
+        graph.addVertex("Pagutan Barat");
+        graph.addVertex("Pagutan Timur");
+        graph.addVertex("Pejanggik");
+        graph.addVertex("Punia");
+        graph.addVertex("Abian Tubuh Baru");
+        graph.addVertex("Babakan");
+        graph.addVertex("Bertais");
+        graph.addVertex("Dasan Cermen");
+        graph.addVertex("Mandalika");
+        graph.addVertex("Selagalas");
+        graph.addVertex("Turida");
+        graph.addVertex("Jempong Baru");
+        graph.addVertex("Karang Pule");
+        graph.addVertex("Kekalik Jaya");
+        graph.addVertex("Tanjung Karang");
+        graph.addVertex("Tanjung Karang Permai");
+        graph.addVertex("Dasan Agung");
+        graph.addVertex("Dasan Agung Baru");
+        graph.addVertex("Gomong");
+        graph.addVertex("Karang Baru");
+        graph.addVertex("Mataram Barat");
+        graph.addVertex("Monjok");
+        graph.addVertex("Monjok Barat");
+        graph.addVertex("Monjok Timur");
+        graph.addVertex("Rembiga");
