@@ -8,4 +8,5 @@ public class Vertex {
     public Vertex(String kelurahan) {
         this.kelurahan = kelurahan;
     }
+    
 }
