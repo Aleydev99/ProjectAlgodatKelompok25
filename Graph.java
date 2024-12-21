@@ -20,7 +20,7 @@ public class Graph {
 
         if (source != null && destination != null) {
             source.addEdge(destination, jarak);
-            destination.addEdge(source, jarak);
+            destination.addEdge(source, jarak); 
         }
     }
 
@@ -54,7 +54,7 @@ public class Graph {
         startVertex.distance = 0;
 
         while (true) {
-            Vertex current = findMinDistance(); 
+            Vertex current = findMinDistance(); // Tidak menggunakan array, iterasi langsung pada linked list
             if (current == null || current == destinationVertex) {
                 break;
             }
@@ -72,47 +72,90 @@ public class Graph {
                 neighbor = neighbor.next;
             }
         }
-
         printPath(startVertex, destinationVertex);
     }
 
-    public void printPath(Vertex startVertex, Vertex destinationVertex) {
-        System.out.println(
-                "Jalur Tercepat Dari " + startVertex.kelurahan + " Menuju " + destinationVertex.kelurahan + ":");
-
-        if (destinationVertex.previousVertex == null) {
-            System.out.println("Tidak ada jalur yang tersedia.");
-            return;
-        }
-        
-        Vertex current = destinationVertex;
-        StringBuilder path = new StringBuilder();
-        int totalDistance = current.distance;
-
-        while (current != null) {
-            path.insert(0, current.kelurahan + (current == startVertex ? "" : " -> "));
-            current = current.previousVertex;
-        }
-
-        System.out.println(path);
-        System.out.println("Total jarak: " + totalDistance + " km");
-    }
-
-    public Vertex findMinDistance() {
+    private Vertex findMinDistance() {
         Vertex minVertex = null;
         int minDistance = Integer.MAX_VALUE;
 
-        Vertex current = head;
+        Vertex temp = head;
+        while (temp != null) {
+            if (!temp.visited && temp.distance < minDistance) {
+                minDistance = temp.distance;
+                minVertex = temp;
+            }
+            temp = temp.next;
+        }
+        return minVertex;
+    }
+
+    private void printPath(Vertex startVertex, Vertex destinationVertex) {
+        System.out.println("Jalur Tercepat Dari " + startVertex.kelurahan + " Menuju " + destinationVertex.kelurahan + ":");
+
+        // Mencari panjang jalur
+        int pathLength = 0;
+        Vertex current = destinationVertex;
         while (current != null) {
-            if (!current.visited && current.distance < minDistance) {
-                minDistance = current.distance;
-                minVertex = current;
+            pathLength++;
+            current = current.previousVertex;
+        }
+
+        // Membentuk jalur sebagai linked list (bukan array)
+        String path = "";
+        current = destinationVertex;
+        while (current != null) {
+            path = current.kelurahan + (path.isEmpty() ? "" : " -> ") + path;
+            current = current.previousVertex;
+        }
+
+        System.out.println(path + " -> Sampai");
+        System.out.println("Total jarak: " + destinationVertex.distance + " km");
+    }
+    // Sorting kelurahan berdasarkan nama (Bubble Sort)
+    public void sortVertices() {
+        if (head == null || head.next == null) return;
+
+        Vertex current = head;
+        Vertex next;
+        String tempName;
+
+        // Bubble Sort
+        while (current != null) {
+            next = current.next;
+            while (next != null) {
+                if (current.kelurahan.compareTo(next.kelurahan) > 0) {
+                    // Swap kelurahan
+                    tempName = current.kelurahan;
+                    current.kelurahan = next.kelurahan;
+                    next.kelurahan = tempName;
+                }
+                next = next.next;
             }
             current = current.next;
         }
-
-        return minVertex;
     }
+
+    // Menampilkan kelurahan yang sudah diurutkan
+    public void displaySortedVertices() {
+        sortVertices(); // Mengurutkan kelurahan terlebih dahulu
+        Vertex temp = head;
+        while (temp != null) {
+            System.out.print(temp.kelurahan + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("Selesai.");
+    }
+    
+    public void resetVisited() {
+        Vertex temp = head;
+        while (temp != null) {
+            temp.visited = false;
+            temp = temp.next;
+        }
+    }
+
+    // DFS (Depth-First Search) untuk menampilkan semua kelurahan
     public void displayWithStack(Vertex startVertex) {
         if (startVertex == null) {
             return;
@@ -138,8 +181,9 @@ public class Graph {
         }
         System.out.println("Selesai.");
     }
-    
- public void displayWithQueue(Vertex startVertex) {
+
+    // BFS (Breadth-First Search) untuk menampilkan semua kelurahan
+    public void displayWithQueue(Vertex startVertex) {
         if (startVertex == null) {
             return;
         }
@@ -162,5 +206,8 @@ public class Graph {
                 }
             }
         }
+        System.out.println("Selesai.");
     }
 }
+
+
