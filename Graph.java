@@ -44,4 +44,31 @@ public class Graph {
             temp = temp.next;
         }
     }
+    
+    public void displayWithStack(Vertex startVertex) {
+        if (startVertex == null) {
+            return;
+        }
+        resetVisited();
+        Stack stack = new Stack();
+        stack.push(startVertex);
+
+        while (!stack.isEmpty()) {
+            Vertex current = (Vertex) stack.pop();
+            if (!current.visited) {
+                current.visited = true;
+                System.out.print(current.kelurahan + " -> ");
+
+                EdgeList.Edge edge = current.edge.head;
+                while (edge != null) {
+                    if (!edge.destination.visited) {
+                        stack.push(edge.destination);
+                    }
+                    edge = edge.next;
+                }
+            }
+        }
+        System.out.println("Selesai.");
+    }
+
 }
