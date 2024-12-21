@@ -44,7 +44,75 @@ public class Graph {
             temp = temp.next;
         }
     }
-    
+
+    public void dijkstra(Vertex startVertex, Vertex destinationVertex) {
+        if (startVertex == null || destinationVertex == null) {
+            return;
+        }
+
+        resetDistances();
+        startVertex.distance = 0;
+
+        while (true) {
+            Vertex current = findMinDistance(); 
+            if (current == null || current == destinationVertex) {
+                break;
+            }
+
+            current.visited = true;
+            EdgeList.Edge neighbor = current.edge.head;
+            while (neighbor != null) {
+                if (!neighbor.destination.visited) {
+                    int newDistance = current.distance + neighbor.jarak;
+                    if (newDistance < neighbor.destination.distance) {
+                        neighbor.destination.distance = newDistance;
+                        neighbor.destination.previousVertex = current;
+                    }
+                }
+                neighbor = neighbor.next;
+            }
+        }
+
+        printPath(startVertex, destinationVertex);
+    }
+
+    public void printPath(Vertex startVertex, Vertex destinationVertex) {
+        System.out.println(
+                "Jalur Tercepat Dari " + startVertex.kelurahan + " Menuju " + destinationVertex.kelurahan + ":");
+
+        if (destinationVertex.previousVertex == null) {
+            System.out.println("Tidak ada jalur yang tersedia.");
+            return;
+        }
+        
+        Vertex current = destinationVertex;
+        StringBuilder path = new StringBuilder();
+        int totalDistance = current.distance;
+
+        while (current != null) {
+            path.insert(0, current.kelurahan + (current == startVertex ? "" : " -> "));
+            current = current.previousVertex;
+        }
+
+        System.out.println(path);
+        System.out.println("Total jarak: " + totalDistance + " km");
+    }
+
+    public Vertex findMinDistance() {
+        Vertex minVertex = null;
+        int minDistance = Integer.MAX_VALUE;
+
+        Vertex current = head;
+        while (current != null) {
+            if (!current.visited && current.distance < minDistance) {
+                minDistance = current.distance;
+                minVertex = current;
+            }
+            current = current.next;
+        }
+
+        return minVertex;
+    }
     public void displayWithStack(Vertex startVertex) {
         if (startVertex == null) {
             return;
