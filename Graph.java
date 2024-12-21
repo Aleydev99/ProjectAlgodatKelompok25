@@ -138,5 +138,29 @@ public class Graph {
         }
         System.out.println("Selesai.");
     }
+    
+ public void displayWithQueue(Vertex startVertex) {
+        if (startVertex == null) {
+            return;
+        }
+        resetVisited();
+        Queue queue = new Queue();
+        queue.enqueue(startVertex);
 
+        while (!queue.isEmpty()) {
+            Vertex current = (Vertex) queue.dequeue();
+            if (!current.visited) {
+                current.visited = true;
+                System.out.print(current.kelurahan + " -> ");
+
+                EdgeList.Edge edge = current.edge.head;
+                while (edge != null) {
+                    if (!edge.destination.visited) {
+                        queue.enqueue(edge.destination);
+                    }
+                    edge = edge.next;
+                }
+            }
+        }
+    }
 }
